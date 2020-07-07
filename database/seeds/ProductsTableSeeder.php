@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Product;
+use Faker\Generator as Faker;
 
 class ProductsTableSeeder extends Seeder
 {
@@ -10,7 +11,7 @@ class ProductsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         $prodotti = [
             [
@@ -33,5 +34,12 @@ class ProductsTableSeeder extends Seeder
             $nuovo_prodotto->price = $prodotto['prezzo'];
             $nuovo_prodotto->save();
         };
+
+        for ($i=0; $i < 10; $i++) { 
+            $nuovoProdotto = new Product();
+            $nuovoProdotto->name = $faker->word;
+            $nuovoProdotto->price = $faker->numberBetween($min = 20, $max = 100);
+            $nuovoProdotto->save();
+        }
     }
 }
